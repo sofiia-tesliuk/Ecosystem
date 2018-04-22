@@ -24,9 +24,11 @@ class Animal:
 
     def act(self, other):
         if self.TYPE != other.TYPE:
-            return {'old': [self, other], 'new': [[self, other][self.TYPE == 'Fish']]}
+            return {'old': [self, other],
+                    'new': [[self, other][self.TYPE == 'Fish']]}
         else:
-            return {'old': [self, other], 'new': [self, other, self.new_instance()]}
+            return {'old': [self, other],
+                    'new': [self, other, self.new_instance()]}
 
     def __str__(self):
         return self.StrType
@@ -35,6 +37,9 @@ class Animal:
         return self.StrType
 
     def new_instance(self):
+        """
+        :return: created new instance of animal with type as parent
+        """
         raise NotImplementedError
 
 
