@@ -44,7 +44,7 @@ class Ecosystem:
     # def moving_animals(self, river):
     #     while None in river:
     #         num = len(river) - 1
-    #         while True : #choos random animal, переобирає якшо None
+    #         while True :
     #             index = random.randint(0, num)-1
     #             animal = river[index]
     #             if animal is not None:
@@ -53,15 +53,15 @@ class Ecosystem:
     #         next_step = random.randint(0, num)-1
     #         opponent = river[next_step]
     #
-    #         if opponent is None: #якщо тварина просто міняє позицію на посту
+    #         if opponent is None:
     #             river[index], river[next_step] = None, animal
-    #         elif isinstance(animal, Bear): #Якщо тварина це ведідь і будь-яка інша тварина.
-    #             if isinstance(opponent, Bear): #якщо два ведмеді
-    #                 if animal['sex'] == opponent['sex'] :#якщо два самці
-    #                     if animal['power'] > opponent['power']: #viner is animal
+    #         elif isinstance(animal, Bear): 
+    #             if isinstance(opponent, Bear): 
+    #                 if animal['sex'] == opponent['sex'] :
+    #                     if animal['power'] > opponent['power']: 
     #                         river[index], river[next_step] = None, animal
     #                     elif animal['power'] < opponent['power']:
-    #                         river[index], river[next_step] = None, opponent #viner is opponent
+    #                         river[index], river[next_step] = None, opponent 
     #                     else:
     #                         if animal['age'] < opponent['age']:
     #                             river[index], river[next_step] = None, animal
