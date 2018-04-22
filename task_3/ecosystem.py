@@ -1,22 +1,5 @@
 import random
-
-
-class Animal:
-    Type = None
-
-    def __init__(self):
-        pass
-
-
-class Bear(Animal):
-    pass
-
-
-class Fish(Animal):
-    pass
-
-class Otter(Animal):
-    pass
+from task_3 import animals
 
 
 class Ecosystem:
@@ -29,12 +12,12 @@ class Ecosystem:
             age_otter = random.randint(0, 12)
             age_bear = random.randint(0, 10)
             info = lambda age_animal: {'sex': random.choice([True, False]), 'age': age_animal, 'power': round(random.uniform(1, 5), 2)}
-            item = random.choice([Bear(), Fish(), Otter(), None])
-            if isinstance(item, Bear):
+            item = random.choice([animals.Bear(), animals.Fish(), animals.Otter(), None])
+            if isinstance(item, animals.Bear):
                 animal = {item: info(age_bear)}
-            elif isinstance(item, Fish):
+            elif isinstance(item, animals.Fish):
                 animal = {item: info(age_fish)}
-            elif isinstance(item, Otter):
+            elif isinstance(item, animals.Otter):
                 animal = {item: info(age_otter)}
             else:
                 animal = None
