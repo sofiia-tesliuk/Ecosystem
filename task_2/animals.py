@@ -16,7 +16,7 @@ class Animal:
         else:
             return False
 
-    def figth_or_reproduction(self, other):
+    def fight_or_reproduction(self, other):
         """Verifies whether the objects are of the same sex"""
         return True if self.sex is other.sex else False
 

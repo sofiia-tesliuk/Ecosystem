@@ -1,4 +1,4 @@
-from animals import *
+from task_2.animals import *
 
 
 class Ecosystem:
@@ -7,7 +7,7 @@ class Ecosystem:
 
         self.river = []
 
-    def add_amimals(self, n):
+    def add_animals(self, n):
         """Create primary river"""
         for i in range(n):
             animal = random.choice(["fish", "bear", "none"])
@@ -45,8 +45,8 @@ class Ecosystem:
                     new_list[animal1.index] = animal1
                 else:
                     if animal1.check_sex(self.river[animal1.index]) is True:
-                        if animal1.figth_or_reproduction(self.river[animal1
-                                .index]):
+                        if animal1.figth_or_reproduction(self.river
+                                                         [animal1.index]):
                             if animal1.fight(self.river[animal1.index]):
                                 self.river[animal1.index] = animal1
                         else:
