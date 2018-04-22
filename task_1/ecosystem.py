@@ -81,7 +81,8 @@ class River:
     def add_new_animal(self, new_animal, state=None):
         """
         Add in river state new animal in randomly choose position
-        :param animal: animal
+        :param new_animal: animal
+        :param state: list
         :return: None
         """
         if state is None:
