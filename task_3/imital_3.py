@@ -1,4 +1,4 @@
-from task_1.ecosystem import Ecosystem
+from task_3.ecosystem_3 import Ecosystem
 
 
 def main():

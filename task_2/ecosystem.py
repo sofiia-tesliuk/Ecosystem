@@ -4,7 +4,6 @@ from task_2.animals import *
 class Ecosystem:
     """Represents ecosystem and river """
     def __init__(self):
-
         self.river = []
 
     def add_animals(self, n):
