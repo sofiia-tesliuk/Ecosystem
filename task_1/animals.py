@@ -22,14 +22,6 @@ class Animal:
         else:
             return i + random.randint(-1, 1)
 
-    def act(self, other):
-        if self.TYPE == other.TYPE:
-            return {'old': [self, other],
-                    'new': [self, other, self.new_instance()]}
-        else:
-            return {'old': [self, other],
-                    'new': [[self, other][self.TYPE == 'Fish']]}
-
     @staticmethod
     def acting_many(animals):
         def process_animals(processed_animals):
