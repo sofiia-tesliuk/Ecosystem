@@ -5,6 +5,9 @@ class Animal:
     TYPE = None
     StrType = None
 
+    def __init__(self, position=0):
+        self.position = position
+
     @staticmethod
     def choose_side(i, max_lim):
         """
@@ -26,6 +29,31 @@ class Animal:
         else:
             return {'old': [self, other],
                     'new': [[self, other][self.TYPE == 'Fish']]}
+
+    @staticmethod
+    def acting_many(animals):
+        def process_animals(processed_animals):
+            if len(processed_animals) == 1:
+                return {'old': [],
+                        'new': processed_animals,
+                        '+': []}
+            elif len(processed_animals) == 2:
+                return {'old': processed_animals,
+                        'new': [],
+                        '+': [processed_animals[0].new_instance()]}
+            elif len(processed_animals) == 3:
+                return {'old': processed_animals,
+                        'new': [],
+                        '+': [processed_animals[0].new_instance()
+                              for i in range(3)]}
+
+        dict_animals = {'Bear': [], 'Fish': []}
+        for animal in animals:
+            dict_animals[animal.__class__.__name__].append(animal)
+        if dict_animals['Bear']:
+            return process_animals(dict_animals['Bear'])
+        else:
+            return process_animals(dict_animals['Fish'])
 
     def __str__(self):
         return self.StrType

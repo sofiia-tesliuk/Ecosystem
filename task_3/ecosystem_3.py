@@ -1,11 +1,10 @@
 import random
-import animals
+from task_3 import animals
 
 
 class River:
     """ The river's initialization. """
     length_river = int(input("Enter river length in ecosystem: "))
-
 
     def r_river(self):
         river = []

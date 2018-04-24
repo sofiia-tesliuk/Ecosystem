@@ -50,7 +50,7 @@ class River:
         for i in range(self._length):
             animal = random.choice([animals.Fish, animals.Bear, None, None])
             if animal:
-                animal = animal()
+                animal = animal(i)
             state.append(animal)
         return state
 
@@ -97,25 +97,34 @@ class River:
         changes configuration in river
         :return: None
         """
+        new_state = [[] for i in range(self._length)]
         new_animals = []
+        for i, cell in enumerate(self.state):
+            if cell:
+                new_state[cell.choose_side(i, self._length - 1)].append(cell)
+
+        unresolved_conflicts = True
+        while unresolved_conflicts:
+            unresolved_conflicts = False
+            for i, cell in enumerate(new_state):
+                if len(cell) >= 2:
+                    unresolved_conflicts = True
+                    # Animals in current cell acting
+                    state_of_cell = cell[0].acting_many(cell)
+                    new_state[i] = []
+                    for animal in state_of_cell['old']:
+                        new_state[animal.position].append(animal)
+                    for animal in state_of_cell['new']:
+                        new_state[i] = [animal]
+                    new_animals.extend(state_of_cell['+'])
+
+        self.state = [cell[0] if cell else None for cell in new_state]
+        for animal in new_animals:
+            self.add_new_animal(animal)
 
         for i, animal in enumerate(self.state):
             if animal:
-                side = animal.choose_side(i, self._length - 1)
-                # if in side position someone already was
-                if self.state[side]:
-                    cell_state = animal.act(self.state[side])['new']
-                    if len(cell_state) == 1:
-                        self.state[i] = None
-                        self.state[side] = cell_state[0]
-                    else:
-                        new_animals.append(cell_state[2])
-                else:
-                    self.state[i] = None
-                    self.state[side] = animal
-
-        for animal in new_animals:
-            self.add_new_animal(animal)
+                animal.position = i
 
 
 class Overpopulation(Exception):

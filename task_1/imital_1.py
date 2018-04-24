@@ -11,7 +11,8 @@ def main():
         assert (river_length > 0) and (number_of_iterations > 0), None
         ecosystem = Ecosystem(river_length)
         ecosystem.simulation(number_of_iterations)
-    except (ValueError, TypeError, AssertionError):
+    except (ValueError, TypeError, AssertionError) as err:
+        print(err)
         print('Values should be positive integers.\n')
         main()
     except AssertionError:
