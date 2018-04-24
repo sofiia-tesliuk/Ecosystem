@@ -32,16 +32,18 @@ class Ecosystem(River):
         self.river = River().r_river()
         for i in range(number):
             while True:
-                index = random.randint(0, self.length_river) - 1
-                animal = self.river[index]
+                animal = self.river[number]
                 if animal is not None:
                     break
-
-            next_step = random.randint(0, self.length_river) - 1
-            opponent = self.river[next_step]
-            Ecosystem().move_bear(animal, opponent, index, next_step)
-            Ecosystem().move_fish(animal, opponent, index, next_step)
-            Ecosystem().move_otter(animal, opponent, index, next_step)
+            try:
+                next_step = random.choice([self.length_river-1, self.length_river, self.length_river+1])
+                opponent = self.river[next_step]
+            except IndexError:
+                opponent = self.river[self.length_river-1]
+            self.move_bear(animal, opponent, number, next_step)
+            self.move_fish(animal, opponent, number, next_step)
+            self.move_otter(animal, opponent, number, next_step)
+        print(self.river)
 
     def birth_baby(self, number, item):
         """ Creating a new animal. """
