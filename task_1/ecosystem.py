@@ -32,14 +32,6 @@ class Ecosystem:
         """
         return self.river.bear_count()
 
-    def add_new_animal(self, animal):
-        """
-        Add in river state new animal in randomly choose position
-        :param animal: animal
-        :return: None
-        """
-        self.river.add_new_animal(animal)
-
 
 class River:
     def __init__(self, length):
@@ -58,7 +50,7 @@ class River:
         for i in range(self._length):
             animal = random.choice([animals.Fish, animals.Bear, None, None])
             if animal:
-                animal = animal(i)
+                animal = animal()
             state.append(animal)
         return state
 
@@ -78,26 +70,23 @@ class River:
                              self.state))).count('Bear')
         return num_bear
 
-    def add_new_animal(self, new_animal, state=None):
+    def add_new_animal(self, new_animal):
         """
         Add in river state new animal in randomly choose position
         :param new_animal: animal
-        :param state: list
         :return: None
         """
-        if state is None:
-            state = self.state
         index_l = random.randint(1, self._length)
         index_r = index_l
         while (index_l >= 0) or (index_r < self._length):
             index_l -= 1
             index_r += 1
             try:
-                if not state[index_l]:
-                    state[index_l] = new_animal
+                if not self.state[index_l]:
+                    self.state[index_l] = new_animal
                     return None
-                elif not state[index_r]:
-                    state[index_r] = new_animal
+                elif not self.state[index_r]:
+                    self.state[index_r] = new_animal
                     return None
             except IndexError:
                 continue
@@ -108,35 +97,25 @@ class River:
         changes configuration in river
         :return: None
         """
-        new_state = [[] for i in range(self._length)]
         new_animals = []
-        for i, cell in enumerate(self.state):
-            if cell:
-                new_state[cell.choose_side(i, self._length - 1)].append(cell)
 
-        unresolved_conflicts = True
-        while unresolved_conflicts:
-            unresolved_conflicts = False
-            for i, cell in enumerate(new_state):
-                if len(cell) == 2:
-                    unresolved_conflicts = True
-                    # Two animals in current cell acting
-                    state_of_cell = cell[0].act(cell[1])
-                    new_state[i] = []
-                    if len(state_of_cell['new']) == 3:
-                        new_animals.append(state_of_cell['new'][2])
-                    for animal in state_of_cell['old']:
-                        new_state[animal.position].append(animal)
-
-        new_state = [cell[0] if cell else None for cell in new_state]
-        for animal in new_animals:
-            self.add_new_animal(animal, new_state)
-
-        for i, animal in enumerate(new_state):
+        for i, animal in enumerate(self.state):
             if animal:
-                animal.position = i
+                side = animal.choose_side(i, self._length - 1)
+                # if in side position someone already was
+                if self.state[side]:
+                    cell_state = animal.act(self.state[side])['new']
+                    if len(cell_state) == 1:
+                        self.state[i] = None
+                        self.state[side] = cell_state[0]
+                    else:
+                        new_animals.append(cell_state[2])
+                else:
+                    self.state[i] = None
+                    self.state[side] = animal
 
-        self.state = new_state
+        for animal in new_animals:
+            self.add_new_animal(animal)
 
 
 class Overpopulation(Exception):

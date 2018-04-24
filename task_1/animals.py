@@ -5,9 +5,6 @@ class Animal:
     TYPE = None
     StrType = None
 
-    def __init__(self, position=0):
-        self.position = position
-
     @staticmethod
     def choose_side(i, max_lim):
         """
@@ -23,12 +20,12 @@ class Animal:
             return i + random.randint(-1, 1)
 
     def act(self, other):
-        if self.TYPE != other.TYPE:
-            return {'old': [self, other],
-                    'new': [[self, other][self.TYPE == 'Fish']]}
-        else:
+        if self.TYPE == other.TYPE:
             return {'old': [self, other],
                     'new': [self, other, self.new_instance()]}
+        else:
+            return {'old': [self, other],
+                    'new': [[self, other][self.TYPE == 'Fish']]}
 
     def __str__(self):
         return self.StrType
