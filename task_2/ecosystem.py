@@ -44,7 +44,7 @@ class Ecosystem:
                     new_list[animal1.index] = animal1
                 else:
                     if animal1.check_sex(self.river[animal1.index]) is True:
-                        if animal1.figth_or_reproduction(self.river
+                        if animal1.fight_or_reproduction(self.river
                                                          [animal1.index]):
                             if animal1.fight(self.river[animal1.index]):
                                 self.river[animal1.index] = animal1

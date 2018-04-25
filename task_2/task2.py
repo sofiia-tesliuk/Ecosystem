@@ -8,10 +8,16 @@ def main():
     c = eco.add_animals(n)
     k = 0
     while k < i:
+        string = ""
         eco.move()
         k += 1
         print("This is a river after {} years".format(k))
-        print(eco.river)
+        for animal in eco.river:
+
+                # string += animal.__class__.__name__()
+                string += animal.__class__.__name__[0]
+
+        print(string.replace('N', " "))
 
 
 main()
