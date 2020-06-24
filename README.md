@@ -1,2 +1,3 @@
 # Ecosystem
-Lab 10
+
+Simulation of ecosystem in river with two characters -- `Fish` and `Bear`.
